@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MELORING — Cireng Daun Kelor</title>
+  <style>
+    :root{
+      --green:#4f8f5b;
+      --green-dark:#28613a;
+      --cream:#fff8e9;
+      --pink:#f58ca8;
+      --red:#d94b55;
+      --white:#fff;
+      --text:#30352f;
+      --muted:#777;
+      --line:#eadfce;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--cream);
+      color:var(--text);
+    }
+    .topbar{
+      background:var(--green-dark);
+      color:white;
+      text-align:center;
+      padding:8px 15px;
+      font-size:13px;
+    }
+    header{
+      background:var(--white);
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 2px 12px #00000010;
+    }
+    .nav{
+      max-width:1100px;
+      margin:auto;
+      padding:14px 20px;
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+    .logo{
+      font-weight:900;
+      font-size:25px;
+      color:var(--green-dark);
+      white-space:nowrap;
+    }
+    .logo span{color:var(--pink)}
+    .search{
+      flex:1;
+      background:#f5f5f2;
+      border:1px solid #e6e6df;
+      border-radius:25px;
+      padding:12px 18px;
+      outline:none;
+      font-size:14px;
+    }
+    .cart{
+      background:var(--pink);
+      color:white;
+      border:0;
+      border-radius:22px;
+      padding:11px 16px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .hero{
+      max-width:1100px;
+      margin:24px auto 10px;
+      padding:0 20px;
+    }
+    .hero-box{
+      background:linear-gradient(120deg,#e8f3df,#fff2f5);
+      border-radius:24px;
+      padding:35px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:25px;
+      overflow:hidden;
+    }
+    .hero h1{
+      font-size:40px;
+      margin:0 0 10px;
+      color:var(--green-dark);
+    }
+    .hero p{margin:6px 0;color:#596057}
+    .badge{
+      display:inline-block;
+      background:var(--red);
+      color:white;
+      border-radius:20px;
+      padding:7px 13px;
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+    .hero-art{
+      font-size:105px;
+      transform:rotate(-5deg);
+    }
+    main{
+      max-width:1100px;
+      margin:auto;
+      padding:15px 20px 60px;
+    }
+    .section-title{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      margin:25px 0 15px;
+    }
+    .section-title h2{margin:0;color:var(--green-dark)}
+    .section-title small{color:var(--muted)}
+    .tabs{
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding-bottom:8px;
+    }
+    .tab{
+      border:1px solid var(--line);
+      background:white;
+      padding:9px 16px;
+      border-radius:20px;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .tab.active{background:var(--green);color:white;border-color:var(--green)}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:17px;
+    }
+    .card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 4px 14px #00000008;
+    }
+    .food-img{
+      height:180px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:75px;
+      background:linear-gradient(135deg,#edf5e7,#fff0f4);
+    }
+    .card-body{padding:15px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .desc{font-size:13px;color:var(--muted);min-height:38px;line-height:1.4}
+    .price{
+      font-size:18px;
+      font-weight:900;
+      color:var(--red);
+      margin:10px 0;
+    }
+    .buy{
+      width:100%;
+      border:0;
+      border-radius:12px;
+      background:var(--green);
+      color:white;
+      padding:11px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .buy:hover{background:var(--green-dark)}
+    .info{
+      margin-top:25px;
+      background:white;
+      border-radius:18px;
+      padding:20px;
+      border:1px solid var(--line);
+    }
+    .info h3{margin-top:0;color:var(--green-dark)}
+    .order{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .order a{
+      text-decoration:none;
+      color:white;
+      background:var(--red);
+      padding:12px 17px;
+      border-radius:12px;
+      font-weight:bold;
+    }
+    footer{
+      background:var(--green-dark);
+      color:white;
+      text-align:center;
+      padding:22px;
+      font-size:13px;
+    }
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:#0008;
+      z-index:30;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .modal-box{
+      width:min(430px,100%);
+      background:white;
+      border-radius:20px;
+      padding:22px;
+    }
+    .modal-box h2{margin-top:0;color:var(--green-dark)}
+    .close{
+      float:right;
+      border:0;
+      background:#eee;
+      border-radius:50%;
+      width:30px;height:30px;
+      cursor:pointer;
+    }
+    .summary{
+      background:var(--cream);
+      padding:12px;
+      border-radius:12px;
+      margin:12px 0;
+    }
+    @media(max-width:750px){
+      .grid{grid-template-columns:1fr 1fr}
+      .hero h1{font-size:30px}
+      .hero-art{font-size:75px}
+      .nav{gap:9px}
+      .logo{font-size:20px}
+    }
+    @media(max-width:520px){
+      .grid{grid-template-columns:1fr}
+      .hero-box{padding:25px}
+      .hero-art{display:none}
+      .search{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">🌿 Jajanan hijau, rasa nggak kaleng-kaleng • Fresh dibuat saat dipesan</div>
+
+<header>
+  <div class="nav">
+    <div class="logo">MELOR<span>ING</span> 🌿</div>
+    <input class="search" id="search" placeholder="Cari cireng favoritmu..." oninput="filterMenu()">
+    <button class="cart" onclick="openCart()">🛒 Pesanan (<span id="cartCount">0</span>)</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-box">
+    <div>
+      <div class="badge">#CIRENGNAIKLEVEL</div>
+      <h1>Cireng Daun Kelor<br>yang nggak boring 🌿</h1>
+      <p>Kenyal, gurih, dan punya isian yang bikin nagih.</p>
+      <p><b>Manis? Pedes? Gas, pilih mood-mu!</b></p>
+    </div>
+    <div class="hero-art">🥟🌿</div>
+  </div>
+</section>
+
+<main>
+  <div class="section-title">
+    <h2>Menu Favorit 💚</h2>
+    <small>Pilih & langsung pesan</small>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showCategory('all',this)">Semua</button>
+    <button class="tab" onclick="showCategory('manis',this)">🍫 Sweet Mode</button>
+    <button class="tab" onclick="showCategory('pedas',this)">🌶️ Pedes Mode</button>
+  </div>
+
+  <div class="grid" id="menuGrid">
+    <article class="card" data-category="manis" data-name="cireng coklat">
+      <div class="food-img">🥟🍫</div>
+      <div class="card-body">
+        <h3>Choco Melt 🌿</h3>
+        <div class="desc">Cireng daun kelor dengan isian coklat lumer. Manis gurih, combo auto mood naik.</div>
+        <div class="price">Rp2.000</div>
+        <button class="buy" onclick="addCart('Choco Melt 🌿',2000)">+ Tambah</button>
+      </div>
+    </article>
+
+    <article class="card" data-category="pedas" data-name="cireng ayam suwir pedas">
+      <div class="food-img">🥟🌶️🍗</div>
+      <div class="card-body">
+        <h3>Ayam Nyamber 🔥</h3>
+        <div class="desc">Cireng kelor isi ayam suwir pedas. Gurih, juicy, dan pedesnya bikin melek.</div>
+        <div class="price">Rp2.000</div>
+        <button class="buy" onclick="addCart('Ayam Nyamber 🔥',2000)">+ Tambah</button>
+      </div>
+    </article>
+
+    <article class="card" data-category="pedas" data-name="cireng sosis pedas">
+      <div class="food-img">🥟🌶️🌭</div>
+      <div class="card-body">
+        <h3>Sosis Brutal 🌶️</h3>
+        <div class="desc">Cireng kelor isi sosis pedas. Cocok buat kamu yang tim “pedes dikit lagi”.</div>
+        <div class="price">Rp2.000</div>
+        <button class="buy" onclick="addCart('Sosis Brutal 🌶️',2000)">+ Tambah</button>
+      </div>
+    </article>
+  </div>
+
+  <div class="info">
+    <h3>📲 Mau langsung order?</h3>
+    <p>Chat/telepon nomor di bawah untuk pesan atau konfirmasi pesanan.</p>
+    <div class="order">
+      <a href="tel:081334128676">☎️ 0813-3412-8676</a>
+      <a href="https://wa.me/6281334128676" target="_blank">💬 Chat WhatsApp</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  MELORING 🌿 — Cireng Daun Kelor • Made with love & a little bit of spicy
+</footer>
+
+<div class="modal" id="cartModal" onclick="closeOutside(event)">
+  <div class="modal-box">
+    <button class="close" onclick="closeCart()">×</button>
+    <h2>🛒 Pesanan Kamu</h2>
+    <div id="cartItems"></div>
+    <div class="summary">
+      <b>Total: Rp<span id="total">0</span></b>
+    </div>
+    <a id="waOrder" href="#" target="_blank"
+       style="display:block;text-align:center;text-decoration:none;background:#4f8f5b;color:white;padding:12px;border-radius:12px;font-weight:bold">
+       Pesan via WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+
+  function rupiah(n){
+    return new Intl.NumberFormat('id-ID').format(n);
+  }
+
+  function addCart(name, price){
+    cart.push({name, price});
+    document.getElementById('cartCount').textContent = cart.length;
+    alert(name + " ditambahkan ke pesanan! 🌿");
+  }
+
+  function openCart(){
+    const modal = document.getElementById('cartModal');
+    const items = document.getElementById('cartItems');
+    const total = cart.reduce((sum,item)=>sum+item.price,0);
+
+    if(cart.length === 0){
+      items.innerHTML = '<p>Belum ada menu yang dipilih. Yuk pilih cireng dulu 😋</p>';
+    } else {
+      items.innerHTML = cart.map((item,i)=>
+        `<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #eee">
+          <span>${i+1}. ${item.name}</span>
+          <b>Rp${rupiah(item.price)}</b>
+        </div>`
+      ).join('');
+    }
+
+    document.getElementById('total').textContent = rupiah(total);
+
+    const text = cart.length
+      ? "Halo MELORING! 🌿 Saya mau pesan:%0A" +
+        cart.map((x,i)=>`${i+1}. ${x.name} - Rp${rupiah(x.price)}`).join("%0A") +
+        `%0A%0ATotal: Rp${rupiah(total)}`
+      : "Halo MELORING! 🌿 Saya mau tanya menu cireng.";
+
+    document.getElementById('waOrder').href =
+      "https://wa.me/6281334128676?text=" + text;
+
+    modal.style.display = 'flex';
+  }
+
+  function closeCart(){
+    document.getElementById('cartModal').style.display = 'none';
+  }
+
+  function closeOutside(e){
+    if(e.target.id === 'cartModal') closeCart();
+  }
+
+  function showCategory(category, button){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    button.classList.add('active');
+
+    document.querySelectorAll('.card').forEach(card=>{
+      card.style.display = category === 'all' || card.dataset.category === category
+        ? ''
+        : 'none';
+    });
+  }
+
+  function filterMenu(){
+    const query = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card=>{
+      card.style.display = card.dataset.name.includes(query) ? '' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
